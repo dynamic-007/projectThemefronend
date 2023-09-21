@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from "react-router-dom"
 import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 import FilterContext from '../context/context';
 
 import './paginate.css'
 
-function Items({ currentItems,onChangeList }) {
+function Items({ currentItems,onChangeList,isSelected }) {
     return (
         <>
           {currentItems &&
@@ -18,13 +19,13 @@ function Items({ currentItems,onChangeList }) {
                   } =Department_contact_details;
                 return (
                   <div>        
-              <label><input id={each._id} type="checkbox" onChange={(e)=>onChangeList(e,each)}/> Select</label>
+              <label><input id={each._id} type="checkbox" onChange={(e)=>onChangeList(e,each)} checked={isSelected(each._id)}/> Select</label>
               <h1>{State}</h1>
               <p>{District}</p>
               <p>{Quantity}</p>
               <p>{Item_code}</p>
               <p>{Item}</p>
-              <p>{Dept_name}</p>
+              <Link to={`/profile/${Dept_name}`} target='_blank'><p>{Dept_name}</p></Link>
               <p>{Dept_addr}</p>
         
           
@@ -61,10 +62,10 @@ function PaginatedItems({ items,itemsPerPage }) {
 
   return (
     <FilterContext.Consumer>{value=>{
-        const {changeListItem}=value
+        const {changeListItem,isSelected}=value
         return (
         <>
-        <Items currentItems={currentItems} onChangeList={changeListItem} />
+        <Items currentItems={currentItems} onChangeList={changeListItem} isSelected={isSelected} />
         <div
       style={{
         display: 'flex',

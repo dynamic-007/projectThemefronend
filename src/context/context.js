@@ -5,6 +5,7 @@ const FilterContext=React.createContext({
     selectedList:[],
     changeListItem:()=>{},
     changeCategory:()=>{},
+    isSelected:()=>{},
 })
 
 export default FilterContext

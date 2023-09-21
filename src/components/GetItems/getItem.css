@@ -1,0 +1,19 @@
+
+.listgroup{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px ;
+}
+.listItem{
+
+    border-style: solid;
+    border-color: brown;
+    border-width: 1.5px;
+    border-radius: 5px;
+    list-style-type: none;
+    height: 200px;
+    width: 200px;
+}

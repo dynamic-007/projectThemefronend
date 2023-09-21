@@ -24,7 +24,7 @@ export default function UserDetails() {
       .then((data) => {
         console.log(data, "userData");
         window.localStorage.setItem("user", data.data.deptName);
-        if (data.data.userType == "Admin") {
+        if (data.data.userType === "Admin") {
           setAdmin(true);
         }
 

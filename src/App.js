@@ -120,12 +120,19 @@ function App() {
     }
    }
 
-
+   const isSelected=(id)=>{
+    const newL=formData.list.filter((each)=>each._id===id);
+    if(newL.length!==0){
+    console.log("checking in the list of options")
+    console.log(newL)
+    }
+    return newL.length===0?false:true;
+   }
   
    
 
   return (modalOpen===true ? (<Modal setOpenModal={setModalOpen} list={formData.list} />):(
-    <FilterContext.Provider value={{initialState:selectedOptions,selectedList:formData.list,changeListItem:onChangeList,changeCategory:setSelectedOptions}} >
+    <FilterContext.Provider value={{initialState:selectedOptions,selectedList:formData.list,changeListItem:onChangeList,changeCategory:setSelectedOptions,isSelected}} >
     <form onSubmit={(e)=> {
       e.preventDefault();
       getDetails();

@@ -10,6 +10,8 @@ import ImageUpload from "./components/imageUpload.";
 import App from "./App";
 import ReceiverPage from "./components/receiverPage";
 import SenderPage from "./components/senderPage";
+import SearchOrganization from "./components/Profile/profile";
+import Profile from "./components/Profile/profilewithItem";
 
 function Apps() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -28,6 +30,8 @@ function Apps() {
           <Route path="/resourceDetails" element={<App />} />
           <Route path="/receiverRequests" element={<ReceiverPage />} />
           <Route path="/requestSent" element={<SenderPage />} />
+          <Route path="/profile/:id" element={<SearchOrganization />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         {/* <ImageUpload/> */}
       </div>
