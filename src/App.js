@@ -99,7 +99,7 @@ function App() {
       
           // 17.13193916301302, 79.6336286313457
     console.log(afterFilter)
-    afterFilter=afterFilter.map(each=>({...each,distance:distance(79.6336286313457,each.location.coordinates[1],17.13193916301302,each.location.coordinates[0])}))
+    afterFilter=afterFilter.map(each=>(each.location?{...each,distance:distance(79.6336286313457,each.location.coordinates[1],17.13193916301302,each.location.coordinates[0])}:{...each}))
     console.log("added distance")
     console.log(afterFilter)
     afterFilter.sort((a, b) => {
