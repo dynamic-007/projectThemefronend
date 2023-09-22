@@ -8,6 +8,7 @@ import FilterContext from './context/context';
 import PaginatedItems from './features/paginate';
 import Modal from './components/RequestForm';
 import AppMap from './components/Maps/Map1';
+import MapWithMarkers from './components/Maps/mapswithLabel';
 
 
 // const hr=["Select all","Search and Rescue Teams for Collapsed Structures","Search and Rescue Teams with canines","Divers Teams","Search  and Rescue Teams for Flood","Oil Installation fire fighting team","High Rise Buildings fire fighting team","Ports  fire fighting team","Aviation  fire fighting team","Mines fire fighting team","Thermal Power Plant fire fighting team","Nuclear Power Plant fire fighting team","General physician","Trauma specialist","Surgeon","Anesthetist","Gynecologist","Radiologist","Paramedics","Lab technicians","OT assistants","Medical first responders","Ham Radio Operators","Search and Rescue Teams for NBC Disasters","Scuba Divers","Driver HMV","Labour","Health workers","Driver LMV","Aapda Mitra","Ex Army Personnel","Ex CAPFs Personnel"]
@@ -187,6 +188,7 @@ function App() {
         })
       }
     </ul> */}
+    <MapWithMarkers markers={data} />
     <PaginatedItems items={data} itemsPerPage={25} />
 
 

@@ -39,6 +39,25 @@ function Modal({ setOpenModal,list }) {
     
   }
 
+  const changeQuantity=(e,deptname,ic)=>{
+    
+    const item=requestData.filter((each)=>each.deptname===deptname);
+    const updatedList=item[0].items.map((each)=>{
+      if(each.Item_details.Item_code===ic){
+        return {...each,reqQuantity:e.target.value};
+      }
+      return each;
+    })
+    const newList=requestData.map(each=>{
+      if(each.deptname===deptname){
+        return {...each,items:[...updatedList]};
+      }
+      return each;
+    })
+    setRequest(newList)
+  }
+
+
   return (
     <div >
       <div>
@@ -72,13 +91,10 @@ function Modal({ setOpenModal,list }) {
               } =Department_contact_details;
             return (
               <div>
-                {/* <h1>{State}</h1>
-                <p>{District}</p>
-                <p>{Quantity}</p>
-                <p>{Item_code}</p> */}
+                
                 <p>{Item}</p>
-                {/* <p>{Dept_name}</p>
-                <p>{Dept_addr}</p> */}
+                <p>Max Quantity available :{Quantity}</p>
+                <input type="text" value={each.reqQuantity} onChange={(e)=>changeQuantity(e,eachRequest.deptname,Item_code)}/>
               </div>
             );
           })

@@ -40,11 +40,51 @@ const ReceiverPage = () => {
             console.log(updatedList);
             setGrant(updatedList);
         }
-        
+
+        let filtered1 = requests.map(each=> {
+            if(each._id===id){
+                each.resourcesRequested=each.resourcesRequested.map(each=>{
+                    if(each._id===data._id){
+                        return {...each,status:"Accepted"}
+                    }
+                    return each
+                })}
+            return each;
+        });
+        setRequest(filtered1)
+    
     }
+
+    const CancelRequest=(id,data)=>{
+        let filtered = granted.map(each=> {
+            if(each._id===id){
+                each.resourcesGranted=each.resourcesGranted.filter(each=>each._id!==data._id)
+            }
+            return each;
+        });
+        
+
+        let filtered1 = requests.map(each=> {
+            if(each._id===id){
+                each.resourcesRequested=each.resourcesRequested.map(each=>{
+                    if(each._id===data._id){
+                        return {...each,status:"Pending"}
+                    }
+                    return each
+                })}
+            return each;
+        });
+        setGrant(filtered)
+        setRequest(filtered1)
+        
+    
+    }
+
+
     const updateDatabase=async (id)=>{
         const filtered=granted.filter(each=>each._id===id);
         if(filtered.length!==0){
+            let req=requests.filter(each=>each._id===id);
             const response=await fetch(`http://localhost:4000/aliens/senderId/${id}`,{
                 method: "PUT",
             crossDomain: true,
@@ -53,7 +93,7 @@ const ReceiverPage = () => {
           Accept: "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify({resourcesGranted:filtered[0].resourcesGranted,Status:"Accepted"}),
+        body: JSON.stringify({resourcesGranted:filtered[0].resourcesGranted,resourcesRequested:req[0].resourcesRequested,Status:"Accepted"}),
             });
             console.log(response);
         }
@@ -63,9 +103,13 @@ const ReceiverPage = () => {
     useEffect(()=>{
         getDetails();
     },[])
+
+    
+
   return (
     <div>
     <div>Requests Received from various Departments</div>
+    
     <ul>
         {requests.map((element)=>(
             <div>
@@ -77,15 +121,20 @@ const ReceiverPage = () => {
                                 <h1>{each.Item_details.Item}</h1>
                                 <p>{each.Item_details.Item_code}</p>
                                 <p>Qunatity: 5</p>
+                                <p>{each.status}</p>
                                 <div>
-                                    <button type="button" onClick={()=>AcceptRequest(element._id,each)}>Accept the Request</button>
+                                    <button type="button" onClick={()=>AcceptRequest(element._id,each)}>{each.status==="Accepted"?"Accepted":"Accept"}</button>
+                                    <button type="button" onClick={()=>CancelRequest(element._id,each)}>Cancel</button>
                                 </div>
                                 </div>
                             </li>
                         
                     ))}
                 </ul>
-                <button type="button" onClick={()=>updateDatabase(element._id)}>Update</button>
+                <button type="button" onClick={()=>{
+                    updateDatabase(element._id)
+                    
+                    }}>Update</button>
             </div>
         ))}
     </ul>

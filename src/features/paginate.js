@@ -19,16 +19,18 @@ function Items({ currentItems,onChangeList,isSelected }) {
                   } =Department_contact_details;
                 return (
                   <div>        
-              <label><input id={each._id} type="checkbox" onChange={(e)=>onChangeList(e,each)} checked={isSelected(each._id)}/> Select</label>
-              <h1>{State}</h1>
-              <p>{District}</p>
-              <p>{Quantity}</p>
-              <p>{Item_code}</p>
-              <p>{Item}</p>
+              <label><input id={each._id} type="checkbox" onChange={(e)=>{
+                each={...each,reqQuantity:"1"};
+                onChangeList(e,each)}} checked={isSelected(each._id)}/> Select</label>
+              
               <Link to={`/profile/${Dept_name}`} target='_blank'><p>{Dept_name}</p></Link>
               <p>{Dept_addr}</p>
-        
-          
+              <h1>{State}</h1>
+              <p>{District}</p>
+              
+              <p>{Item_code}</p>
+              <p>{Item}</p>
+              <p>Quantity available:{Quantity}</p>
                   </div>
                 );
             }
